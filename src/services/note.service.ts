@@ -6,6 +6,8 @@ import ApiError from '../utils/ApiError'
 
 import { folderService } from '../services'
 
+const noteKeys: (keyof Note)[] = ['id', 'title', 'content', 'archived', 'favorited', 'createdAt', 'updatedAt']
+
 const createNote = async (title: string, content: string, folderId: number) => {
   const folder = await folderService.getFolder(folderId)
   if (!folder) {
@@ -16,11 +18,11 @@ const createNote = async (title: string, content: string, folderId: number) => {
   })
 }
 
-const getNotes = async <T extends keyof Note>(keys: T[] = ['id', 'title', 'content', 'archived', 'favorited', 'createdAt', 'updatedAt'] as T[]) => {
+const getNotes = async () => {
   return prisma.note.findMany({
     where: { deleted: false },
     select: {
-      ...keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+      ...noteKeys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
       folder: {
         select: { id: true, name: true }
       }
@@ -28,11 +30,11 @@ const getNotes = async <T extends keyof Note>(keys: T[] = ['id', 'title', 'conte
   })
 }
 
-const getNote = async <T extends keyof Note>(noteId: number, keys: T[] = ['id', 'title', 'content', 'archived', 'favorited', 'createdAt', 'updatedAt'] as T[]) => {
+const getNote = async (noteId: number) => {
   const note = prisma.note.findUnique({
     where: { id: noteId },
     select: {
-      ...keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
+      ...noteKeys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
       folder: {
         select: { id: true, name: true }
       }
