@@ -55,7 +55,6 @@ cp .env.example .env
 - **Authentication and authorization**: using [passport](http://www.passportjs.org)
 - **Validation**: request data validation using [Joi](https://joi.dev)
 - **Logging**: using [winston](https://github.com/winstonjs/winston) and [morgan](https://github.com/expressjs/morgan)
-- `future` **Testing**: unit and integration tests using [Jest](https://jestjs.io)
 - **Error handling**: centralized error handling mechanism
 - **API documentation**: with [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc) and [swagger-ui-express](https://github.com/scottie1984/swagger-ui-express)
 - **Process management**: advanced production process management using [PM2](https://pm2.keymetrics.io)
@@ -86,29 +85,6 @@ Running in production:
 yarn start
 ```
 
-Testing:
-
-```bash
-# run all tests
-yarn test
-
-# run all tests in watch mode
-yarn test:watch
-
-# run test coverage
-yarn coverage
-```
-
-Database:
-
-```bash
-# push changes to db
-yarn db:push
-
-# start prisma studio
-yarn db:studio
-```
-
 Docker:
 
 ```bash
@@ -117,9 +93,6 @@ yarn docker:dev
 
 # run docker container in production mode
 yarn docker:prod
-
-# run all tests in a docker container
-yarn docker:test
 
 # run docker container with PostgreSQL db
 yarn docker:dev-db:start
@@ -178,7 +151,6 @@ EMAIL_FROM=support@yourapp.com
 src\
  |--config\         # Environment variables and configuration related things
  |--controllers\    # Route controllers (controller layer)
- |--docs\           # Swagger files
  |--middlewares\    # Custom express middlewares
  |--routes\         # Routes
  |--services\       # Business logic (service layer)
